@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identity Verification Form</title>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("D4hl3QCesz0HBZh-o"); // <-- replace with your EmailJS public key
+  })();
+</script>
+<style>
+  body {
+    margin: 0;
+    background: lightblue;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 1000px;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  .form-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .left-section, .right-section {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  @media (max-width: 768px) {
+    .form-container {
+      flex-direction: column;
+    }
+  }
+
+  input, textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin-top: 2px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  #status {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  canvas {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #ccc;
+    cursor: crosshair;
+  }
+</style>
+</head>
+<body>
+
+<form id="contact-form">
+
+  <div class="form-container">
+
+    <!-- Left Section -->
+    <div class="left-section">
+
+      <h2 style="text-align:center;margin-top:0;">Identity Verification Form</h2>
+
+      <!-- 1. Applicant Name -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">1. Applicant Name</span>
+            <input type="text" name="applicant_name" placeholder="Full Name" required>
+          </td>
+        </tr>
+      </table>
+
+      <!-- 2–5 Address -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">2. Address</span>
+            <input type="text" name="address">
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">3. City</span>
+            <input type="text" name="city">
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">4. State</span>
+            <input type="text" name="state" >
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">5. ZIP Code</span>
+            <input type="text" name="zip" pattern="\d{5}">
+          </td>
+        </tr>
+      </table>
+
+      <!-- 6–8 DOB SSN Phone -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">6. Date of Birth</span>
+            <input type="date" name="dob" placeholder="mm/dd/yyyy">
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">7. Social Security Number</span>
+            <input type="number" name="ssn" placeholder="123-45-6789" pattern="\d{3}-\d{2}-\d{4}">
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">8. Telephone Number</span>
+            <input type="number" name="telephone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+          </td>
+        </tr>
+      </table>
+
+      <!-- Document Lists -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr style="text-align:center; font-weight:bold;">
+          <td>List A<br><span style="font-weight:normal;">Submit One</span></td>
+          <td style="width:3%; background:#f0f0f0;">OR</td>
+          <td>List B<br><span style="font-weight:normal;">Submit Two</span></td>
+          <td style="width:3%; background:#f0f0f0;">OR</td>
+          <td>List C<br><span style="font-weight:normal;">Submit One</span></td>
+        </tr>
+
+        <tr style="vertical-align:top; font-size:10pt;">
+          <td style="padding:8px; line-height:1.4;">
+            U.S. Passport book or card<br>
+            Foreign Passport book or card<br>
+            Driver’s license<br>
+            Official Government Identification card<br>
+            School Identification card<br>
+            U.S. military card or draft record<br>
+            Military dependent’s Identification card<br>
+            Native American Tribal Document<br>
+            U.S. Coast Guard Merchant Mariner card<br>
+            Certificate of Naturalization (N-550 or N-570)<br>
+            Certificate of U.S. Citizenship (N-560 or N-561)<br>
+            Office of Refugee Resettlement Verification of Release Form
+          </td>
+          <td></td>
+          <td style="padding:8px; line-height:1.4;">
+            Birth certificate<br>
+            Social Security card<br>
+            Marriage certificate<br>
+            Divorce decree<br>
+            Employer Identification card<br>
+            High school diploma<br>
+            College diploma<br>
+            High school equivalency diploma<br>
+            Property deed or title
+          </td>
+          <td></td>
+          <td style="padding:8px; line-height:1.4;">
+            Hospital or clinic record*<br>
+            Doctor’s record*<br><br>
+            <small>*Applies to applicants 18 and younger only</small>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Attestation -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td>
+            <strong>Attestation:</strong> I attest, under penalty of perjury, that to the best of my knowledge, the information in and submitted with this form is true and correct.
+          </td>
+        </tr>
+      </table>
+
+      <!-- Signature + Date -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td style="width:75%;vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">9. Your Signature</span>
+            <canvas id="signatureCanvasLeft"></canvas>
+            <input type="hidden" name="signature_left" id="signatureDataLeft">
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">10. Date</span>
+            <input type="date" name="signature_date_left" placeholder="mm/dd/yyyy">
+          </td>
+        </tr>
+      </table>
+
+      <!-- Printed Name + Relationship -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td style="width:75%;vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">11. Name (type or print legibly)</span>
+            <input type="text" name="printed_name_left">
+          </td>
+          <td style="vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">12. Relationship to applicant</span>
+            <input type="text" name="relationship_left" value="SELF">
+          </td>
+        </tr>
+      </table>
+
+      <p style="font-size:10pt;margin-top:10px;">
+        NEED HELP WITH THIS FORM? Call 1-855-355-5777. TTY users: 1-800-662-1220 or 1-877-662-4886 (Spanish).
+      </p>
+
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      <p><strong>NY State of Health</strong></p>
+      <p>New York State Department of Health<br>Corning Tower, Room 2580<br>Albany, NY 12237</p>
+      <p style="margin-top:20px;">
+        Effective today, __________________________ hereby designates <strong>Flatbush Insurance Brokerage</strong>, <em>Clark Guo & Associates</em> located at 871 Flatbush, Brooklyn, NY 11226 as my Broker of Record for health and dental plans offered in the NY State of Health Individual Marketplace.
+      </p>
+      <p>This designation remains in effect until I notify the Marketplace in writing to the contrary.</p>
+
+      <!-- Signature + Date -->
+      <table style="border-collapse: collapse; width: 100%;" border="1">
+        <tr>
+          <td style="width:75%;vertical-align:top;">
+            <span style="font-size:8pt;display:block;text-align:left;">Signature</span>
+            <canvas id="signatureCanvasRight"></canvas>
+            <input type="hidden" name="signature_right" id="signatureDataRight" required>
+          </td>
+
+        </tr>
+      </table>
+
+      <!-- Submit button -->
+      <button type="submit">Submit Form</button>
+      <div id="status"></div>
+
+    </div>
+
+  </div>
+</form>
+
+<script>
+    
+// === Signature Pad Function ===
+function createSignaturePad(canvasId, hiddenInputId) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  let isDrawing = false;
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  ctx.strokeStyle = '#000';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+
+  function startDraw(x, y) { ctx.beginPath(); ctx.moveTo(x, y); isDrawing = true; }
+  function draw(x, y) { if (!isDrawing) return; ctx.lineTo(x, y); ctx.stroke(); }
+  function endDraw() { isDrawing = false; document.getElementById(hiddenInputId).value = canvas.toDataURL(); }
+
+  canvas.addEventListener('mousedown', e => startDraw(e.offsetX, e.offsetY));
+  canvas.addEventListener('mousemove', e => draw(e.offsetX, e.offsetY));
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseout', endDraw);
+
+  // Touch support
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    startDraw(touch.clientX - rect.left, touch.clientY - rect.top);
+  });
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = canvas.getBoundingClientRect();
+    draw(touch.clientX - rect.left, touch.clientY - rect.top);
+  });
+  canvas.addEventListener('touchend', endDraw);
+}
+
+createSignaturePad('signatureCanvasLeft', 'signatureDataLeft');
+createSignaturePad('signatureCanvasRight', 'signatureDataRight');
+
+// === EmailJS Submission ===
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  document.getElementById('signatureDataLeft').value = document.getElementById('signatureCanvasLeft').toDataURL();
+  document.getElementById('signatureDataRight').value = document.getElementById('signatureCanvasRight').toDataURL();
+
+  emailjs.sendForm('service_alissd8', 'template_dwvk3xg', this)
+    .then(() => {
+      document.getElementById('status').innerText = '✅ Form submitted successfully!';
+      document.getElementById('status').style.color = 'green';
+    }, (error) => {
+      document.getElementById('status').innerText = '❌ Failed to submit form: ' + JSON.stringify(error);
+      document.getElementById('status').style.color = 'red';
+    });
+});
+</script>
+
+</body>
+</html>
